@@ -1,0 +1,22 @@
+PODS:
+  - flutter_smart_kitchen_dock (0.0.1):
+    - FlutterMacOS
+  - FlutterMacOS (1.0.0)
+
+DEPENDENCIES:
+  - flutter_smart_kitchen_dock (from `Flutter/ephemeral/.symlinks/plugins/flutter_smart_kitchen_dock/macos`)
+  - FlutterMacOS (from `Flutter/ephemeral`)
+
+EXTERNAL SOURCES:
+  flutter_smart_kitchen_dock:
+    :path: Flutter/ephemeral/.symlinks/plugins/flutter_smart_kitchen_dock/macos
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+
+SPEC CHECKSUMS:
+  flutter_smart_kitchen_dock: c5aa66b6c5a1e8b8d6de1bfa3800962202274717
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+
+PODFILE CHECKSUM: 0d3963a09fc94f580682bd88480486da345dc3f0
+
+COCOAPODS: 1.12.1
