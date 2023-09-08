@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:logging/logging.dart';
 import 'package:flutter_smart_kitchen_dock/flutter_smart_kitchen_dock.dart';
+import 'package:flutter/services.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,10 +13,21 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+  bool _handleGlobalKeyEvent(KeyEvent event) {
+    print("EVENT $event");
+    if (event.logicalKey == LogicalKeyboardKey.escape && event is KeyDownEvent) {
+      //triggers on esc
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    //print(HardwareKeyboard.instance.);
+    //HardwareKeyboard.instance.addHandler(_handleGlobalKeyEvent);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -53,10 +67,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() {
     //QuickBlue.setLogger(Logger('quick_blue_example'));
     //QuickBlue.scanResultStream.listen((result) {
-      //print("REsult $result");
-      ////if (!_scanResults.any((r) => r.)) {
-        ////setState(() => _scanResults.add(result));
-      ////}
+    //print("REsult $result");
+    ////if (!_scanResults.any((r) => r.)) {
+    ////setState(() => _scanResults.add(result));
+    ////}
     //});
     return _MyHomePageState();
   }
@@ -113,35 +127,35 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              TextButton(
-                child: Text('startScan'),
-                onPressed: () {
-                  subscription ??= dock.gestures().listen((gesture) {
-                    print("Got gesture ${gesture}");
-                    var snackBar = SnackBar(
-                      content: Text('Gesture ${gesture}'),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  });
-                  //dock.startListening().then((res) {
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                TextButton(
+                  child: Text('startScan'),
+                  onPressed: () {
+                    subscription ??= dock.gestures().listen((gesture) {
+                      print("Got gesture ${gesture}");
+                      var snackBar = SnackBar(
+                        content: Text('Gesture ${gesture}'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    });
+                    //dock.startListening().then((res) {
                     //print("Listen response");
                     //print(res);
-                  //});
-                  //QuickBlue.startScan();
-                },
-              ),
-              TextButton(
-                child: Text('stopScan'),
-                onPressed: () async {
-                  print("cancelling subscription");
-                  await subscription?.cancel();
-                  subscription = null;
-                },
-              ),
-            ],
-          )
+                    //});
+                    //QuickBlue.startScan();
+                  },
+                ),
+                TextButton(
+                  child: Text('stopScan'),
+                  onPressed: () async {
+                    print("cancelling subscription");
+                    await subscription?.cancel();
+                    subscription = null;
+                  },
+                ),
+              ],
+            )
           ],
         ),
       ),
