@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    //scanDevices();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -121,6 +120,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   subscription ??= dock.gestures().listen((gesture) {
                     print("Got gesture ${gesture}");
+                    var snackBar = SnackBar(
+                      content: Text('Gesture ${gesture}'),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
                   //dock.startListening().then((res) {
                     //print("Listen response");
